@@ -6,26 +6,44 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/07/25 05:25:35 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/07/28 10:09:27 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	char	*read_line;
-	size_t	i;
-	static ssize_t	j;
+	static char	*line;
+	static size_t	i;
+	ssize_t	j;
 
-	read_line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!read_line)
-		return (NULL);
-	i = 0;
-	while (i < BUFFER_SIZE)
-		*(read_line + i++) = 0;
-	j = read(fd, read_line, BUFFER_SIZE);
+	if (!line)
+	{
+		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
+		if (!line)
+			return (NULL);
+	}
+	while (i < BUFFER_SIZE + 1)
+		*(line + i++) = 0;
+//	printf("BUFFER_SIZE =%lu\n", i);	// check BUFFER_SIZE
+	j = read(fd, (line + i), BUFFER_SIZE - i);
 	if (j < 0)
+	{
+		free(line);
 		return (NULL);
-	return (read_line);
+	}
+	else if (j == 0)
+	{
+		return (chop((line), &i));
+	}
+	else if (j > 0 && j < BUFFER_SIZE)
+	{
+		i = 0;
+		return (line);
+	}
+	return (line);
 }
