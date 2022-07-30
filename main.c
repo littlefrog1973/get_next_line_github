@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
+/*   By: littlefrog <littlefrog@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 05:07:41 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/07/26 16:42:16 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/07/30 07:02:34 by littlefrog       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char *argv[])
 
 	(void) argc;
 	fd = open(argv[1], O_RDONLY);
-	printf("main: fd = %i\n", fd);
+//	printf("main: fd = %i\n", fd);
 	line = "";
 	while (line != NULL)
 	{

@@ -53,4 +53,5 @@ dkms.conf
 
 # get_next_line
 *.txt
-get_next_line
+main.c
+ft*.c

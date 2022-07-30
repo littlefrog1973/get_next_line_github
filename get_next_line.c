@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
+/*   By: littlefrog <littlefrog@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/07/28 10:09:27 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/07/30 08:02:52 by littlefrog       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,16 @@ char	*get_next_line(int fd)
 		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!line)
 			return (NULL);
+		ft_bzero(line, BUFFER_SIZE + 1);
+//		printf("initiated BUFFER OK\n");
 	}
-	while (i < BUFFER_SIZE + 1)
-		*(line + i++) = 0;
-//	printf("BUFFER_SIZE =%lu\n", i);	// check BUFFER_SIZE
-	j = read(fd, (line + i), BUFFER_SIZE - i);
-	if (j < 0)
+	j = read(fd, &line[i], BUFFER_SIZE - i);
+//	printf("read OK: &line = %p, line point to %p, j = %lu, static i = %lu\n", &line, line, j, i);
+	if (j <= 0)
 	{
 		free(line);
 		return (NULL);
 	}
-	else if (j == 0)
-	{
-		return (chop((line), &i));
-	}
-	else if (j > 0 && j < BUFFER_SIZE)
-	{
-		i = 0;
-		return (line);
-	}
-	return (line);
+	else
+		return (chop(line, &i));
 }
