@@ -6,7 +6,7 @@
 /*   By: littlefrog <littlefrog@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/07/30 08:02:52 by littlefrog       ###   ########.fr       */
+/*   Updated: 2022/07/31 06:46:19 by littlefrog       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*get_next_line(int fd)
 //		printf("initiated BUFFER OK\n");
 	}
 	j = read(fd, &line[i], BUFFER_SIZE - i);
+	printf("In GNL : nbyte = %lu\n", j);
 //	printf("read OK: &line = %p, line point to %p, j = %lu, static i = %lu\n", &line, line, j, i);
 	if (j <= 0)
 	{
