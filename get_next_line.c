@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: littlefrog <littlefrog@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/07/31 06:46:19 by littlefrog       ###   ########.fr       */
+/*   Updated: 2022/08/24 18:08:15 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ char	*get_next_line(int fd)
 		if (!line)
 			return (NULL);
 		ft_bzero(line, BUFFER_SIZE + 1);
-//		printf("initiated BUFFER OK\n");
 	}
-	j = read(fd, &line[i], BUFFER_SIZE - i);
-	printf("In GNL : nbyte = %lu\n", j);
+	j = read(fd, (line + i), BUFFER_SIZE - i);
+	printf("     In GNL : nbyte = %lu\n", j);
 //	printf("read OK: &line = %p, line point to %p, j = %lu, static i = %lu\n", &line, line, j, i);
 	if (j <= 0)
 	{
@@ -38,5 +37,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	else
+	{
+		printf("     In GNL: ft_strlen(line) = %lu\n", ft_strlen(line));
 		return (chop(line, &i));
+	}
 }

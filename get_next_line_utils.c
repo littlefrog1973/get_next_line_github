@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: littlefrog <littlefrog@student.42.fr>      +#+  +:+       +#+        */
+/*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 12:38:57 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/07/30 10:58:21 by littlefrog       ###   ########.fr       */
+/*   Updated: 2022/08/24 18:08:24 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
-	while (*s == '\n' || *s == '\0')
+	while (*(s++) != '\0')
+	{
 		len++;
+	}
 	return (len);
 }
 
