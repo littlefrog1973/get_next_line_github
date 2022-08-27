@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 12:38:57 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/08/24 18:08:24 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/08/27 11:48:02 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,73 +43,53 @@ size_t	ft_strlen(const char *s)
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
-	size_t	j;
 
-//	j = ft_strlen(src);
-	j = 0;
-//	printf("              In ft_strlcpy: src = %s\n", src);
 	i = 0;
 	if (dstsize > 0)
 	{
 		while (i < dstsize - 1)
 		{
-//			if (i < j)
-//			{
-				dst[i] = src[i];
-//			}
-//			else if (i == j && dst[i] != '\0')
-//			{
-//				dst[i] = '\0';
-//				return (j);
-//			}
+			dst[i] = src[i];
 			i++;
 		}
 		dst[i] = '\0';
 	}
-//	printf("              In ft_strlcpy: dst = %s\n", dst);
-	return (j);
+	return (i);
 }
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	unsigned char	*dest;
-	unsigned char	*source;
-	size_t	i;
-
-	dest = (unsigned char *) dst;
-	source = (unsigned char *) src;
-	if (dest <= source && src)
-	{
-		i = 0;
-		while (i < len)
-		{
-			dest[i] = source[i];
-			i++;
-		}
-	}
-	return (dst);
-}
-
-char	*chop(char *line, size_t *i)
-{
+	size_t	size_dst;
 	size_t	j;
-	char	*chop_line;
+	size_t	size_src;
 
+	size_dst = ft_strlen(dst);
+	size_src = ft_strlen(src);
+	if (dstsize < size_dst)
+		return (dstsize + size_src);
 	j = 0;
-	while (line[j] != '\n' && line[j] )
-		j++;
-//	printf("     In chop: j = %lu\n", j);
-	chop_line = (char *) malloc((j + 2) * sizeof(char));
-	if (!chop_line)
+	while (src[j] && j + 1 + size_dst < dstsize)
 	{
-		free(line);
-		return (NULL);
+		if ((dstsize - size_dst >= 1))
+		{
+			*(dst + size_dst + j) = *(src + j);
+		}
+		j++;
 	}
-//	printf("     In chop: malloc for chop_line OK: chop_line = %p\n", chop_line);
-	ft_strlcpy(chop_line, line, j + 2);
-//	printf("     In chop: after ft_strlcpy: chop_line = %s\n", chop_line);
-	*i = BUFFER_SIZE - (j + 1);
-	ft_memmove(line, (line + j + 1), *i);
-	ft_bzero((line + j + 1), *i);
-	return (chop_line);
+	dst[size_dst + j] = '\0';
+	return (size_dst + size_src);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str_join;
+
+	if (!s1 || !s2)
+		return (NULL);
+	str_join = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str_join)
+		return (NULL);
+	ft_strlcpy(str_join, (char *) s1, ft_strlen(s1) + 1);
+	ft_strlcat(str_join, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	return (str_join);
 }
