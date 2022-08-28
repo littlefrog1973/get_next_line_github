@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/08/27 11:54:47 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/08/27 12:07:42 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static char	*chop(char *line)
 		line[i] = line[j + 1 + i];
 		i++;
 	}
-//	ft_memmove(line, (line + j + 1), i);
 	ft_bzero((line + i), (j + 1));
 	return (chop_line);
 }
