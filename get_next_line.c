@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/08/27 12:07:42 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:30:34 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@
 #include "get_next_line.h"
 
 
-static ssize_t	read_buffer(int fd, char *buffer)
-{
-	ssize_t	j;
-
-	j = read(fd, buffer, BUFFER_SIZE);
-	return (j);
-}
 
 static size_t	check_new_line(char *buffer)
 {
@@ -36,6 +29,13 @@ static size_t	check_new_line(char *buffer)
 		i++;
 	}
 	return (i);
+}
+static ssize_t	read_buffer(int fd, char *buffer)
+{
+	ssize_t	j;
+
+	j = read(fd, buffer, BUFFER_SIZE);
+	return (j);
 }
 
 static char	*chop(char *line)
@@ -91,13 +91,14 @@ char	*get_next_line(int fd)
 				return (NULL);
 			}
 			free(line);
-			line = (char *) malloc(ft_strlen(temp));
+			line = (char *) malloc(ft_strlen(line) + 1);
 			if (!line)
 			{
 				free(temp);
 				return (NULL);
 			}
 			ft_strlcpy(line, temp, ft_strlen(temp) + 1);
+			free(temp);
 			continue;
 		}
 		else if (j == 0 && !ft_strlen(line))

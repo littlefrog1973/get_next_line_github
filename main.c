@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 05:07:41 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/08/24 18:08:21 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/08/27 12:03:42 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (line != NULL)
 	{
+		++i;
 		line = get_next_line(fd);
-		printf("%s", line);
-		printf("call %d times\n", ++i);
+		printf("In main (%d): %s", i, line);
+//		printf("In main : call %d times\n", i);
 	}
 	fd = close(fd);
 	return (0);
