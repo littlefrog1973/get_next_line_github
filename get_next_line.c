@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/01 15:50:27 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/02 00:58:40 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*chop(char *line)
 	j = 0;
 	while (line[j] != '\n' && line[j])
 		j++;
-	chop_line = (char *) malloc((j + 2) * sizeof(char));
+	chop_line = (char *) malloc((j + 2));
 	if (!chop_line)
 	{
 		free(line);
@@ -96,7 +96,7 @@ char	*get_next_line(int fd)
 	{
 		ft_bzero(buffer, BUFFER_SIZE + 1);
 		j = read(fd, buffer, BUFFER_SIZE);
-		if (j > 0)	//In case of no new line in read buffer (full read)
+		if (j > 0)
 		{
 			if (!join_line_buffer(line, buffer))
 				return (NULL);

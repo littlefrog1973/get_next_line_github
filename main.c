@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 05:07:41 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/08/27 12:03:42 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/04 23:58:37 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char *argv[])
 	int	i;
 	char	*line;
 
+//	(void) argv[1];
 	(void) argc;
 	fd = open(argv[1], O_RDONLY);
 //	printf("main: fd = %i\n", fd);
@@ -34,5 +35,6 @@ int	main(int argc, char *argv[])
 //		printf("In main : call %d times\n", i);
 	}
 	fd = close(fd);
+	free(line);
 	return (0);
 }

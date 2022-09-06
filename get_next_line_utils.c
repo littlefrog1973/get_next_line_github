@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 12:38:57 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/08/27 12:03:50 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/06 00:07:06 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
-	while (*(s++) != '\0')
+	while (s[len] != '\0')
 	{
 		len++;
 	}
