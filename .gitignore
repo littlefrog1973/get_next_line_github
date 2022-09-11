@@ -58,3 +58,4 @@ ft*.c
 *.pdf
 gnl
 *.json
+Makefile
