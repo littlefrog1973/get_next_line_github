@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/02 00:58:40 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/11 07:59:29 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,19 @@
 
 
 
-static size_t	check_new_line(char *buffer)
+static ssize_t	check_new_line(char *buffer)
 {
 	size_t	i;
 
 	i = 0;
-	while (buffer[i] != '\n')
+	while (buffer[i] != '\n' && buffer[i])
 	{
-		if (buffer[i] == '\0')
-			return (0);
 		i++;
 	}
-	return (i);
+	if (buffer[i] == '\n')
+		return (i);
+	else
+		return (-1);
 }
 
 static char	*chop(char *line)
@@ -98,9 +99,11 @@ char	*get_next_line(int fd)
 		j = read(fd, buffer, BUFFER_SIZE);
 		if (j > 0)
 		{
-			if (!join_line_buffer(line, buffer))
+//			if (!join_line_buffer(line, buffer))
+			line = join_line_buffer(line, buffer);
+			if (!line)
 				return (NULL);
-			if (check_new_line(line))
+			if (check_new_line(line) >= 0)
 				break;
 			continue;
 		}

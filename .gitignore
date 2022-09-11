@@ -56,3 +56,5 @@ dkms.conf
 main.c
 ft*.c
 *.pdf
+gnl
+*.json
