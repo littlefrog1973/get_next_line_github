@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/11 07:59:29 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/13 00:11:02 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*chop(char *line)
 	}
 	ft_strlcpy(chop_line, line, j + 2);
 	i = 0;
-	while (i < ft_strlen(line) - (j + 1))
+	while (i + (j + 1) < ft_strlen(line))
 	{
 		line[i] = line[j + 1 + i];
 		i++;
