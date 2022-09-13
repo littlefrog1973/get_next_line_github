@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/13 22:22:45 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/13 22:46:56 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ char	*get_next_line(int fd)
 	ssize_t		j;
 
 	if (fd < 0)
-		return (NULL);
+	{
+		line = NULL;
+		return (line);
+	}
 	if (!line)
 	{
 		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));

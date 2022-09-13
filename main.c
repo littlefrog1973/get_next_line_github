@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 05:07:41 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/13 22:20:01 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/13 22:30:55 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int	main(int argc, char *argv[])
 //	while (line != NULL)
 //	{
 //		++i;
+		line = get_next_line(1000);
+		printf("In main (%d): %s", i, line);
 		line = get_next_line(-1);
+		printf("In main (%d): %s", i, line);
+		line = get_next_line(fd);
 		printf("In main (%d): %s", i, line);
 		free(line);
 //	}
