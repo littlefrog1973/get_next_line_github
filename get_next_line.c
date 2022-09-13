@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/13 22:46:56 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/14 00:06:05 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ char	*get_next_line(int fd)
 		else if (j < 0 || !ft_strlen(line))
 		{
 			free(line);
+			line = NULL;
 			return (NULL);
 		}
 		else
