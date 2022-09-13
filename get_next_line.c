@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/13 00:11:02 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/13 22:22:45 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "get_next_line.h"
-
-
 
 static ssize_t	check_new_line(char *buffer)
 {
@@ -83,9 +81,11 @@ static char	*join_line_buffer(char *line, char *buffer)
 char	*get_next_line(int fd)
 {
 	static char	*line;
-	char	buffer[BUFFER_SIZE + 1];
-	ssize_t	j;
+	char		buffer[BUFFER_SIZE + 1];
+	ssize_t		j;
 
+	if (fd < 0)
+		return (NULL);
 	if (!line)
 	{
 		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
@@ -99,21 +99,20 @@ char	*get_next_line(int fd)
 		j = read(fd, buffer, BUFFER_SIZE);
 		if (j > 0)
 		{
-//			if (!join_line_buffer(line, buffer))
 			line = join_line_buffer(line, buffer);
 			if (!line)
 				return (NULL);
 			if (check_new_line(line) >= 0)
-				break;
-			continue;
+				break ;
+			continue ;
 		}
 		else if (j < 0 || !ft_strlen(line))
 		{
 			free(line);
-			return(NULL);
+			return (NULL);
 		}
 		else
-			break;
+			break ;
 	}
 	return (chop(line));
 }
