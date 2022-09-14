@@ -6,13 +6,14 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 05:07:41 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/13 23:08:02 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/14 23:33:27 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <time.h>
 #include "get_next_line.h"
 
 int	main(int argc, char *argv[])
@@ -20,25 +21,30 @@ int	main(int argc, char *argv[])
 	int	fd;
 	int	i;
 	char	*line;
+	double time_spent = 0.0;
 
 //	(void) argv[1];
+	clock_t	begin = clock();
 	(void) argc;
 	fd = open(argv[1], O_RDONLY);
 //	printf("main: fd = %i\n", fd);
 	line = "";
 	i = 0;
-//	while (line != NULL)
-//	{
-//		++i;
-		line = get_next_line(fd);
-		printf("In main (%d): %s", i, line);
+	while (line != NULL)
+	{
+		++i;
 		line = get_next_line(fd);
 		printf("In main (%d): %s", i, line);
 //		line = get_next_line(fd);
 //		printf("In main (%d): %s", i, line);
+//		line = get_next_line(fd);
+//		printf("In main (%d): %s", i, line);
 		free(line);
-//	}
+	}
 	fd = close(fd);
 //	free(line);
+	clock_t end = clock();
+	time_spent += (double) (end - begin) / CLOCKS_PER_SEC;
+	printf("\ntime spent = %f\n", time_spent);
 	return (0);
 }
