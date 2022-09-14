@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/14 23:54:49 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:47:34 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "get_next_line.h"
+
+static char	*init_line(int fd, char *line)
+{
+	if (fd < 0)
+	{
+		line = NULL;
+		return (NULL);
+	}
+	if (!line)
+	{
+		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
+		if (!line)
+			return (NULL);
+		ft_bzero(line, BUFFER_SIZE + 1);
+	}
+	return (line);
+}
+
 
 static ssize_t	check_new_line(char *buffer)
 {
@@ -89,10 +107,10 @@ char	*get_next_line(int fd)
 	char		buffer[BUFFER_SIZE + 1];
 	ssize_t		j;
 
-	if (fd < 0)
+/*	if (fd < 0)
 	{
 		line = NULL;
-		return (line);
+		return (NULL);
 	}
 	if (!line)
 	{
@@ -100,7 +118,13 @@ char	*get_next_line(int fd)
 		if (!line)
 			return (NULL);
 		ft_bzero(line, BUFFER_SIZE + 1);
-	}
+	}*/
+
+	if (fd < 0 || !line)
+		line = init_line(fd, line);
+	if (!line)
+		return (NULL);
+
 	while (1)
 	{
 		ft_bzero(buffer, BUFFER_SIZE + 1);
