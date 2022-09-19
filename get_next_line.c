@@ -110,7 +110,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (1)
 	{
-		ft_bzero(buffer, BUFFER_SIZE + 1);
+//		ft_bzero(buffer, BUFFER_SIZE + 1);
 		buffer = (char *) malloc(BUFFER_SIZE + 1);
 		if (!buffer)
 		{
