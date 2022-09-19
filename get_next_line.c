@@ -143,6 +143,7 @@ char	*get_next_line(int fd)
 		else
 			break ;
 	}
+
 	free(buffer);
 	return (chop(line));
 }
