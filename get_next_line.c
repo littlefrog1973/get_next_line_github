@@ -32,7 +32,6 @@ static char	*init_line(int fd, char *line)
 	return (line);
 }
 
-
 static ssize_t	check_new_line(char *buffer)
 {
 	size_t	i;
@@ -72,9 +71,6 @@ static char	*chop(char *line)
 		line[i] = line[j + 1 + i];
 		i++;
 	}
-//
-//	line = line + j + 1;
-//	ft_bzero((line + i), (j + 1));
 	line[i] = '\0';
 	return (chop_line);
 }
@@ -84,6 +80,7 @@ static char	*join_line_buffer(char *line, char *buffer)
 	char	*temp;
 
 	temp = ft_strjoin(line, buffer);
+//	free(buffer);
 	if (!temp)
 	{
 		free(line);
@@ -104,48 +101,48 @@ static char	*join_line_buffer(char *line, char *buffer)
 char	*get_next_line(int fd)
 {
 	static char	*line;
-	char		buffer[BUFFER_SIZE + 1];
+	char		*buffer;
 	ssize_t		j;
-
-/*	if (fd < 0)
-	{
-		line = NULL;
-		return (NULL);
-	}
-	if (!line)
-	{
-		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
-		if (!line)
-			return (NULL);
-		ft_bzero(line, BUFFER_SIZE + 1);
-	}*/
 
 	if (fd < 0 || !line)
 		line = init_line(fd, line);
 	if (!line)
 		return (NULL);
-
 	while (1)
 	{
+//		ft_bzero(buffer, BUFFER_SIZE + 1);
+		buffer = (char *) malloc(BUFFER_SIZE + 1);
+		if (!buffer)
+		{
+			free(line);
+			return (NULL);
+		}
 		ft_bzero(buffer, BUFFER_SIZE + 1);
 		j = read(fd, buffer, BUFFER_SIZE);
 		if (j > 0)
 		{
 			line = join_line_buffer(line, buffer);
 			if (!line)
+			{
+				free(buffer);
 				return (NULL);
+			}
 			if (check_new_line(line) >= 0)
 				break ;
+			free(buffer);
 			continue ;
 		}
 		else if (j < 0 || !ft_strlen(line))
 		{
+
 			free(line);
+			free(buffer);
 			line = NULL;
 			return (NULL);
 		}
 		else
 			break ;
 	}
+	free(buffer);
 	return (chop(line));
 }
