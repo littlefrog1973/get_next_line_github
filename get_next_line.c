@@ -27,7 +27,8 @@ static char	*init_line(int fd, char *line)
 		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!line)
 			return (NULL);
-		ft_bzero(line, BUFFER_SIZE + 1);
+//		ft_bzero(line, BUFFER_SIZE + 1);
+		line[0] = '\0';
 	}
 	return (line);
 }
@@ -87,15 +88,6 @@ static char	*join_line_buffer(char *line, char *buffer, ssize_t j)
 		free(temp);
 		return (NULL);
 	}
-/*	free(line);
-	line = (char *) malloc(ft_strlen(temp) + 1);
-	if (!line)
-	{
-		free(temp);
-		return (NULL);
-	}
-	ft_strlcpy(line, temp, ft_strlen(temp) + 1);
-*/
 	free(temp);
 	return (line);
 }
