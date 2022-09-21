@@ -35,14 +35,12 @@ static char	*init_line(int fd, char *line)
 
 static ssize_t	check_new_line(char *buffer)
 {
-	size_t	i;
+	ssize_t	i;
 
 	i = 0;
-	while (buffer[i] != '\n' && buffer[i])
-	{
+	while (*(buffer + i) != '\n' && *(buffer + i))
 		i++;
-	}
-	if (buffer[i] == '\n')
+	if (*(buffer + i) == '\n')
 		return (i);
 	else
 		return (-1);
