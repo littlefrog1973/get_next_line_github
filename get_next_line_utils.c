@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+/*void	ft_bzero(void *s, size_t n)
 {
 	unsigned char	*chr;
 	size_t			i;
@@ -27,13 +27,13 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-
+*/
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
 	len = 0;
-	while (s[len] != '\0')
+	while (*(s + len) != '\0')
 	{
 		len++;
 	}
@@ -49,10 +49,12 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	{
 		while (i < dstsize - 1)
 		{
-			dst[i] = src[i];
+//			dst[i] = src[i];
+			*(dst + i) = *(src + i);
 			i++;
 		}
-		dst[i] = '\0';
+//		dst[i] = '\0';
+		*(dst + i) = '\0';
 	}
 	return (i);
 }
