@@ -75,10 +75,11 @@ static char	*chop(char *line)
 	return (chop_line);
 }
 
-static char	*join_line_buffer(char *line, char *buffer)
+static char	*join_line_buffer(char *line, char *buffer, ssize_t j)
 {
 	char	*temp;
 
+	buffer[j] = '\0';
 	temp = ft_strjoin(line, buffer);
 //	free(buffer);
 	if (!temp)
@@ -110,18 +111,17 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (1)
 	{
-//		ft_bzero(buffer, BUFFER_SIZE + 1);
 		buffer = (char *) malloc(BUFFER_SIZE + 1);
 		if (!buffer)
 		{
 			free(line);
 			return (NULL);
 		}
-		ft_bzero(buffer, BUFFER_SIZE + 1);
+//		ft_bzero(buffer, BUFFER_SIZE + 1);
 		j = read(fd, buffer, BUFFER_SIZE);
 		if (j > 0)
 		{
-			line = join_line_buffer(line, buffer);
+			line = join_line_buffer(line, buffer, j);
 			if (!line)
 			{
 				free(buffer);
