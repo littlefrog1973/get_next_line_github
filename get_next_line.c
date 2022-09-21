@@ -80,14 +80,14 @@ static char	*join_line_buffer(char *line, char *buffer, ssize_t j)
 	char	*temp;
 
 	buffer[j] = '\0';
-	temp = ft_strjoin(line, buffer);
-//	free(buffer);
-	if (!temp)
+	temp = line;
+	line = ft_strjoin(line, buffer);
+	if (!line)
 	{
-		free(line);
+		free(temp);
 		return (NULL);
 	}
-	free(line);
+/*	free(line);
 	line = (char *) malloc(ft_strlen(temp) + 1);
 	if (!line)
 	{
@@ -95,6 +95,7 @@ static char	*join_line_buffer(char *line, char *buffer, ssize_t j)
 		return (NULL);
 	}
 	ft_strlcpy(line, temp, ft_strlen(temp) + 1);
+*/
 	free(temp);
 	return (line);
 }
