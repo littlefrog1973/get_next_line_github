@@ -14,20 +14,7 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-/*void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*chr;
-	size_t			i;
 
-	chr = (unsigned char *) s;
-	i = 0;
-	while (i < n)
-	{
-		chr[i] = 0;
-		i++;
-	}
-}
-*/
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
