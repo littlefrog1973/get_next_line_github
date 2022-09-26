@@ -20,6 +20,7 @@ char	*s_extend(char *line)
 {
 	char	*new_line;
 	size_t	s_len;
+	size_t	i;
 
 	s_len = ft_strlen(line);
 	new_line = (char *) malloc(s_len + BUFFER_SIZE + 1);
@@ -28,7 +29,9 @@ char	*s_extend(char *line)
 		free(line);
 		return (NULL);
 	}
-	new_line[0] = '\0';
+	i = 0;
+	while (i < s_len + BUFFER_SIZE + 1)
+		new_line[i++] = '\0';
 	ft_strlcpy(new_line, line, s_len + 1);
 	free(line);
 //	printf("In s_extend: after malloc\n");
@@ -56,9 +59,9 @@ static ssize_t	check_new_line(char *buffer)
 	ssize_t	i;
 
 	i = 0;
-	while (*(buffer + i) != '\n' && *(buffer + i))
+	while (buffer[i] != '\n' && buffer[i])
 		i++;
-	if (*(buffer + i) == '\n')
+	if (buffer[i] == '\n')
 		return (i);
 	else
 		return (-1);
@@ -88,7 +91,8 @@ static char	*chop(char *line)
 		line[i] = line[j + 1 + i];
 		i++;
 	}
-	line[i] = '\0';
+	while (i < s_len)
+		line[i++] = '\0';
 	return (chop_line);
 }
 /*
@@ -128,7 +132,7 @@ char	*get_next_line(int fd)
 		}
 */
 //		j = read(fd, buffer, BUFFER_SIZE);
-		j = read(fd, &line[ft_strlen(line)], BUFFER_SIZE);
+		j = read(fd, (line + ft_strlen(line)), BUFFER_SIZE);
 		if (j > 0)
 		{
 /*			line = join_line_buffer(line, buffer, j);
