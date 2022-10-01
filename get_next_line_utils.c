@@ -14,20 +14,19 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-/*void	ft_bzero(void *s, size_t n)
+ssize_t	check_new_line(char *buffer)
 {
-	unsigned char	*chr;
-	size_t			i;
+	ssize_t	i;
 
-	chr = (unsigned char *) s;
 	i = 0;
-	while (i < n)
-	{
-		chr[i] = 0;
+	while (*(buffer + i) != '\n' && *(buffer + i))
 		i++;
-	}
+	if (*(buffer + i) == '\n')
+		return (i);
+	else
+		return (-1);
 }
-*/
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
@@ -57,39 +56,29 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (i);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
-{
-	size_t	size_dst;
-	size_t	j;
-	size_t	size_src;
-
-	size_dst = ft_strlen(dst);
-	size_src = ft_strlen(src);
-	if (dstsize < size_dst)
-		return (dstsize + size_src);
-	j = 0;
-	while (src[j] && j + 1 + size_dst < dstsize)
-	{
-		if ((dstsize - size_dst >= 1))
-		{
-			*(dst + size_dst + j) = *(src + j);
-		}
-		j++;
-	}
-	dst[size_dst + j] = '\0';
-	return (size_dst + size_src);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str_join;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	i;
 
 	if (!s1 || !s2)
 		return (NULL);
-	str_join = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	str_join = (char *) malloc(s1_len + s2_len + 1);
 	if (!str_join)
 		return (NULL);
-	ft_strlcpy(str_join, (char *) s1, ft_strlen(s1) + 1);
-	ft_strlcat(str_join, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	i = 0;
+	while (i < s1_len + s2_len)
+	{
+		if (i < s1_len)
+			str_join[i] = s1[i];
+		if (i >= s1_len)
+			str_join[i] = s2[i - s1_len];
+		i++;
+	}
+	str_join[s1_len + s2_len] = '\0';
 	return (str_join);
 }

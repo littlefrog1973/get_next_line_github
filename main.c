@@ -23,11 +23,9 @@ int	main(int argc, char *argv[])
 	char	*line;
 	double time_spent = 0.0;
 
-//	(void) argv[1];
 	clock_t	begin = clock();
 	(void) argc;
 	fd = open(argv[1], O_RDONLY);
-//	printf("main: fd = %i\n", fd);
 	line = "";
 	i = 0;
 	while (line != NULL)
@@ -37,12 +35,9 @@ int	main(int argc, char *argv[])
 		printf("In main (%d): %s", i, line);
 //		line = get_next_line(fd);
 //		printf("In main (%d): %s", i, line);
-//		line = get_next_line(fd);
-//		printf("In main (%d): %s", i, line);
 		free(line);
 	}
 	fd = close(fd);
-//	free(line);
 	clock_t end = clock();
 	time_spent += (double) (end - begin) / CLOCKS_PER_SEC;
 	printf("\ntime spent = %f\n", time_spent);

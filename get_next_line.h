@@ -21,11 +21,10 @@
 
 
 char	*get_next_line(int fd);
+ssize_t	check_new_line(char *buffer);
 
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-void	ft_bzero(void *s, size_t n);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 

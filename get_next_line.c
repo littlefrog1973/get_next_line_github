@@ -15,35 +15,16 @@
 #include <unistd.h>
 #include "get_next_line.h"
 
-static char	*init_line(int fd, char *line)
+static char	*init_line(char *line)
 {
-	if (fd < 0)
-	{
-		line = NULL;
-		return (NULL);
-	}
 	if (!line)
 	{
 		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!line)
 			return (NULL);
-//		ft_bzero(line, BUFFER_SIZE + 1);
 		line[0] = '\0';
 	}
 	return (line);
-}
-
-static ssize_t	check_new_line(char *buffer)
-{
-	ssize_t	i;
-
-	i = 0;
-	while (*(buffer + i) != '\n' && *(buffer + i))
-		i++;
-	if (*(buffer + i) == '\n')
-		return (i);
-	else
-		return (-1);
 }
 
 static char	*chop(char *line)
@@ -89,29 +70,45 @@ static char	*join_line_buffer(char *line, char *buffer, ssize_t j)
 	free(temp);
 	return (line);
 }
+/*
+static char	*read_to_line(char *r_line, int fd)
+{
+	char	*r_buffer;
+	ssize_t	j;
 
+	r_buffer = (char *) malloc(BUFFER_SIZE + 1);
+	r_buffer[BUFFER_SIZE] = '\0';
+	if (!r_buffer)
+	{
+		free(r_line);
+		return (NULL);
+	}
+	j = read(fd, r_buffer, BUFFER_SIZE);
+	while (check_new_line(r_buffer) < 0)
+
+}
+*/
 char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*buffer;
 	ssize_t		j;
 
-	if (fd < 0 || !line)
-		line = init_line(fd, line);
-	if (!line)
+	if (BUFFER_SIZE < 0 || fd < 0)
 		return (NULL);
+	buffer = (char *) malloc(BUFFER_SIZE + 1);
+	line = init_line(line);
+	if (!line)
+	{
+		free(buffer);
+		return (NULL);
+	}
 	while (1)
 	{
-		buffer = (char *) malloc(BUFFER_SIZE + 1);
-		if (!buffer)
-		{
-			free(line);
-			return (NULL);
-		}
-//		ft_bzero(buffer, BUFFER_SIZE + 1);
 		j = read(fd, buffer, BUFFER_SIZE);
 		if (j > 0)
 		{
+			buffer[j] = '\0';
 			line = join_line_buffer(line, buffer, j);
 			if (!line)
 			{
@@ -120,12 +117,10 @@ char	*get_next_line(int fd)
 			}
 			if (check_new_line(line) >= 0)
 				break ;
-			free(buffer);
 			continue ;
 		}
 		else if (j < 0 || !ft_strlen(line))
 		{
-
 			free(line);
 			free(buffer);
 			line = NULL;
@@ -134,7 +129,6 @@ char	*get_next_line(int fd)
 		else
 			break ;
 	}
-
 	free(buffer);
 	return (chop(line));
 }
