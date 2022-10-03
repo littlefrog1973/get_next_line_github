@@ -16,10 +16,11 @@
 #include "get_next_line.h"
 
 static char	*init_line(char *line)
+// Just initiate line with only one byte allocattion
 {
 	if (!line)
 	{
-		line = (char *) malloc((BUFFER_SIZE + 1) * sizeof(char));
+		line = (char *) malloc(sizeof(char));
 		if (!line)
 			return (NULL);
 		line[0] = '\0';
@@ -70,24 +71,46 @@ static char	*join_line_buffer(char *line, char *buffer, ssize_t j)
 	free(temp);
 	return (line);
 }
-/*
-static char	*read_to_line(char *r_line, int fd)
+
+static char	*read_to_line(char *r_line, int fd, int *sig)
+// read to buffer until found new line, use sig to inform caller in case of any error
+// sig = 1 = malloc error of local r_buffer so just return (r_line)
+// sig = 2 = read error (j < 0) or blank r_line
 {
 	char	*r_buffer;
 	ssize_t	j;
 
 	r_buffer = (char *) malloc(BUFFER_SIZE + 1);
-	r_buffer[BUFFER_SIZE] = '\0';
 	if (!r_buffer)
 	{
-		free(r_line);
-		return (NULL);
+		*sig = 1;
+		return (r_line);
 	}
-	j = read(fd, r_buffer, BUFFER_SIZE);
-	while (check_new_line(r_buffer) < 0)
-
+	while (1)
+	{
+		j = read(fd, r_buffer, BUFFER_SIZE);
+		if (j > 0)
+		{
+			r_line = join_line_buffer(r_line, r_buffer, j);
+			if (!r_line || check_new_line(r_line) >= 0)
+			{
+				break ;
+			}
+			continue ;
+		}
+		else if (j < 0 || !ft_strlen(r_line))
+		{
+			*sig = 2;
+			break ;
+		}
+		else
+			break ;
+	}
+	free (r_buffer);
+	return (r_line);
 }
-*/
+
+/* current get_next_line
 char	*get_next_line(int fd)
 {
 	static char	*line;
@@ -108,7 +131,7 @@ char	*get_next_line(int fd)
 		j = read(fd, buffer, BUFFER_SIZE);
 		if (j > 0)
 		{
-			buffer[j] = '\0';
+//			buffer[j] = '\0';
 			line = join_line_buffer(line, buffer, j);
 			if (!line)
 			{
@@ -131,4 +154,27 @@ char	*get_next_line(int fd)
 	}
 	free(buffer);
 	return (chop(line));
+}
+*/
+// new get_next_line to reduce line number of code
+char	*get_next_line(int fd)
+{
+	static char	*line;
+	int	err;
+
+	if (BUFFER_SIZE < 0 || fd < 0)
+		return (NULL);
+	err = 0;
+	line = init_line(line);
+	if (!line)
+		return (NULL);
+	line = read_to_line(line, fd, &err);
+	if (err)
+	{
+		free(line);
+		line = NULL;
+		return (NULL);
+	}
+	else
+		return (chop(line));
 }
