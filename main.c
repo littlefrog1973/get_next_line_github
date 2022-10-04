@@ -28,21 +28,19 @@ int	main(int argc, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 	line = "";
 	i = 0;
-//	while (line != NULL)
-//	{
+	while (line != NULL)
+	{
 		++i;
-		line = get_next_line(1000);
+/*		line = get_next_line(1000);
 		printf("In main (%d): %s", i, line);
 		line = get_next_line(-1);
 		printf("In main (%d): %s", i, line);
 		close(fd);
+*/
 		line = get_next_line(fd);
 		printf("In main (%d): %s", i, line);
-
-//		line = get_next_line(fd);
-//		printf("In main (%d): %s", i, line);
 		free(line);
-//	}
+	}
 	fd = close(fd);
 	clock_t end = clock();
 	time_spent += (double) (end - begin) / CLOCKS_PER_SEC;

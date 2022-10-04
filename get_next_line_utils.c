@@ -6,12 +6,11 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 12:38:57 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/06 00:07:06 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/10/04 23:27:37 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include "get_next_line.h"
 
 ssize_t	check_new_line(char *buffer)
@@ -29,7 +28,7 @@ ssize_t	check_new_line(char *buffer)
 }
 
 size_t	ft_strlen(const char *s)
-/* Measure string lenght */
+/* Measure string length */
 {
 	size_t	len;
 
@@ -83,7 +82,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 			*(str_join + i) = *(s2 + i - s1_len);
 		i++;
 	}
-//	str_join[s1_len + s2_len] = '\0';
 	*(str_join + s1_len + s2_len) = '\0';
 	return (str_join);
 }

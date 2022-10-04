@@ -6,17 +6,15 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:55:35 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/09/15 00:47:34 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/10/04 23:32:05 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+//#include <unistd.h>
 #include "get_next_line.h"
 
 static char	*init_line(char *line)
-/* Just initiate line with only one byte allocattion */
+/* Just initiate line with only one byte allocation */
 {
 	if (!line)
 	{
