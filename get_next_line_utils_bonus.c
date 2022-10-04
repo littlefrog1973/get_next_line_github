@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 12:38:57 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/10/04 23:50:42 by sdeeyien         ###   ########.fr       */
+/*   Created: 2022/10/04 23:48:34 by sdeeyien          #+#    #+#             */
+/*   Updated: 2022/10/04 23:51:24 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 ssize_t	check_new_line(char *buffer)
 /* Check whether new_line in buffer or not, if yes: return its position */
