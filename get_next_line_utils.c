@@ -15,6 +15,7 @@
 #include "get_next_line.h"
 
 ssize_t	check_new_line(char *buffer)
+/* Check whether new_line in buffer or not, if yes: return its position */
 {
 	ssize_t	i;
 
@@ -28,6 +29,7 @@ ssize_t	check_new_line(char *buffer)
 }
 
 size_t	ft_strlen(const char *s)
+/* Measure string lenght */
 {
 	size_t	len;
 
@@ -40,6 +42,7 @@ size_t	ft_strlen(const char *s)
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+/* Copy string from src to dst with dstsize */
 {
 	size_t	i;
 
@@ -48,15 +51,16 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	{
 		while (i < dstsize - 1)
 		{
-			dst[i] = src[i];
+			*(dst + i) = *(src + i);
 			i++;
 		}
-		dst[i] = '\0';
+		*(dst + i) = '\0';
 	}
 	return (i);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
+/* malloc new memory to join s1 and s2 */
 {
 	char	*str_join;
 	size_t	s1_len;
@@ -74,11 +78,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (i < s1_len + s2_len)
 	{
 		if (i < s1_len)
-			str_join[i] = s1[i];
+			*(str_join + i) = *(s1 + i);
 		if (i >= s1_len)
-			str_join[i] = s2[i - s1_len];
+			*(str_join + i) = *(s2 + i - s1_len);
 		i++;
 	}
-	str_join[s1_len + s2_len] = '\0';
+//	str_join[s1_len + s2_len] = '\0';
+	*(str_join + s1_len + s2_len) = '\0';
 	return (str_join);
 }

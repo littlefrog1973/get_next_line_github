@@ -16,7 +16,7 @@
 #include "get_next_line.h"
 
 static char	*init_line(char *line)
-// Just initiate line with only one byte allocattion
+/* Just initiate line with only one byte allocattion */
 {
 	if (!line)
 	{
@@ -29,6 +29,7 @@ static char	*init_line(char *line)
 }
 
 static char	*chop(char *line)
+/* To chop line to each new line ended chop_line */
 {
 	size_t	j;
 	char	*chop_line;
@@ -57,6 +58,7 @@ static char	*chop(char *line)
 }
 
 static char	*join_line_buffer(char *line, char *buffer, ssize_t j)
+/* Join read buffer to static char *line */
 {
 	char	*temp;
 
@@ -95,12 +97,6 @@ static char	*read_to_line(char *r_line, int fd, int *sig)
 				break ;
 			continue ;
 		}
-//		else if (j < 0 || !(*r_line))
-/*		if (j < 0 || !(*r_line))
-		{
-			*sig = 2;
-			break ;
-		}*/
 		else
 			break ;
 	}
@@ -108,8 +104,8 @@ static char	*read_to_line(char *r_line, int fd, int *sig)
 	return (r_line);
 }
 
-// new get_next_line to reduce line number of code
 char	*get_next_line(int fd)
+/* new get_next_line to reduce line number of code */
 {
 	static char	*line;
 	int			err;
@@ -122,7 +118,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = read_to_line(line, fd, &err);
 	if (err || !(*line))
-//	if (!line && !(*line))
 	{
 		free(line);
 		line = NULL;
