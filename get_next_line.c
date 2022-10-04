@@ -73,9 +73,8 @@ static char	*join_line_buffer(char *line, char *buffer, ssize_t j)
 }
 
 static char	*read_to_line(char *r_line, int fd, int *sig)
-// read to buffer until found new line, use sig to inform caller in case of any error
-// sig = 1 = malloc error of local r_buffer so just return (r_line)
-// sig = 2 = read error (j < 0) or blank r_line
+/* read to buffer until found new line, use sig to inform caller in case error
+ sig = 1 = malloc error of local r_buffer so just return (r_line) */
 {
 	char	*r_buffer;
 	ssize_t	j;
@@ -93,16 +92,15 @@ static char	*read_to_line(char *r_line, int fd, int *sig)
 		{
 			r_line = join_line_buffer(r_line, r_buffer, j);
 			if (!r_line || check_new_line(r_line) >= 0)
-			{
 				break ;
-			}
 			continue ;
 		}
-		else if (j < 0 || !ft_strlen(r_line))
+//		else if (j < 0 || !(*r_line))
+/*		if (j < 0 || !(*r_line))
 		{
 			*sig = 2;
 			break ;
-		}
+		}*/
 		else
 			break ;
 	}
@@ -110,57 +108,11 @@ static char	*read_to_line(char *r_line, int fd, int *sig)
 	return (r_line);
 }
 
-/* current get_next_line
-char	*get_next_line(int fd)
-{
-	static char	*line;
-	char		*buffer;
-	ssize_t		j;
-
-	if (BUFFER_SIZE < 0 || fd < 0)
-		return (NULL);
-	buffer = (char *) malloc(BUFFER_SIZE + 1);
-	line = init_line(line);
-	if (!line)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	while (1)
-	{
-		j = read(fd, buffer, BUFFER_SIZE);
-		if (j > 0)
-		{
-//			buffer[j] = '\0';
-			line = join_line_buffer(line, buffer, j);
-			if (!line)
-			{
-				free(buffer);
-				return (NULL);
-			}
-			if (check_new_line(line) >= 0)
-				break ;
-			continue ;
-		}
-		else if (j < 0 || !ft_strlen(line))
-		{
-			free(line);
-			free(buffer);
-			line = NULL;
-			return (NULL);
-		}
-		else
-			break ;
-	}
-	free(buffer);
-	return (chop(line));
-}
-*/
 // new get_next_line to reduce line number of code
 char	*get_next_line(int fd)
 {
 	static char	*line;
-	int	err;
+	int			err;
 
 	if (BUFFER_SIZE < 0 || fd < 0)
 		return (NULL);
@@ -169,7 +121,8 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	line = read_to_line(line, fd, &err);
-	if (err)
+	if (err || !(*line))
+//	if (!line && !(*line))
 	{
 		free(line);
 		line = NULL;
