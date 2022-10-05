@@ -6,7 +6,7 @@
 /*   By: sdeeyien <sukitd@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 23:21:26 by sdeeyien          #+#    #+#             */
-/*   Updated: 2022/10/04 23:36:29 by sdeeyien         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:45:52 by sdeeyien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,22 @@ static char	*read_to_line(char *r_line, int fd, int *sig)
 char	*get_next_line(int fd)
 /* new get_next_line to reduce line number of code */
 {
-	static char	*line;
+	static char	*line[4096];
 	int			err;
 
-	if (BUFFER_SIZE < 0 || fd < 0)
+	if (BUFFER_SIZE < 0 || fd < 0 || fd > 4095)
 		return (NULL);
 	err = 0;
-	line = init_line(line);
-	if (!line)
+	line[fd] = init_line(line[fd]);
+	if (!(line[fd]))
 		return (NULL);
-	line = read_to_line(line, fd, &err);
-	if (err || !(*line))
+	line[fd] = read_to_line(line[fd], fd, &err);
+	if (err || !(*line[fd]))
 	{
-		free(line);
-		line = NULL;
+		free(line[fd]);
+		line[fd] = NULL;
 		return (NULL);
 	}
 	else
-		return (chop(line));
+		return (chop(line[fd]));
 }
